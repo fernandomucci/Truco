@@ -61,21 +61,33 @@ int PesoCartas(Carta c)
 
   //cartas mais fortes,vulgo manilha
   if(strcmp(c.valor,"4")==0 && strcmp(c.naipe,"Paus")==0)peso=14;
-  if(strcmp(c.valor,"7")==0 && strcmp(c.naipe,"Copas")==0)peso=13;
-  if(strcmp(c.valor,"A")==0 && strcmp(c.naipe,"Espadas")==0)peso=12;
-  if(strcmp(c.valor,"7")==0 && strcmp(c.naipe,"Ouros")==0)peso=11;
+
+  else if(strcmp(c.valor,"7")==0 && strcmp(c.naipe,"Copas")==0)peso=13;
+
+  else if(strcmp(c.valor,"A")==0 && strcmp(c.naipe,"Espadas")==0)peso=12;
+
+  else if(strcmp(c.valor,"7")==0 && strcmp(c.naipe,"Ouros")==0)peso=11;
 
   //cartas padrao
-   if(strcmp(c.valor,"3")==0)peso=10;
-   if(strcmp(c.valor,"2")==0)peso=9;
-   if(strcmp(c.valor,"A")==0)peso=8;
-   if(strcmp(c.valor,"K")==0)peso=7;
-   if(strcmp(c.valor,"J")==0)peso=6;
-   if(strcmp(c.valor,"Q")==0)peso=5;
-   if(strcmp(c.valor,"7")==0)peso=4;
-   if(strcmp(c.valor,"6")==0)peso=3;
-   if(strcmp(c.valor,"5")==0)peso=2;
-   if(strcmp(c.valor,"4")==0)peso=1;
+   else if(strcmp(c.valor,"3")==0)peso=10;
+
+   else if(strcmp(c.valor,"2")==0)peso=9;
+
+   else if(strcmp(c.valor,"A")==0)peso=8;
+
+   else if(strcmp(c.valor,"K")==0)peso=7;
+
+   else if(strcmp(c.valor,"J")==0)peso=6;
+
+   else if(strcmp(c.valor,"Q")==0)peso=5;
+
+   else if(strcmp(c.valor,"7")==0)peso=4;
+
+   else if(strcmp(c.valor,"6")==0)peso=3;
+
+   else if(strcmp(c.valor,"5")==0)peso=2;
+   
+   else if(strcmp(c.valor,"4")==0)peso=1;
 
    return peso;
 }
