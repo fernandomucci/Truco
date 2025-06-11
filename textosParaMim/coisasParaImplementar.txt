@@ -1,0 +1,28 @@
+PROJETOS ESSENCIAIS
+
+sistema de kenga
+
+sistema do truco,seis,nove,12
+
+sistema de roleta russa
+
+sistema de emoji(ja tem,mas minha fonte nao permite,ent deixei como comentario no final do codigo de cartas.cpp,
+na fução de sobrecarga)
+
+
+
+PROJETO FINAL
+
+passar o codigo pra c#
+
+fazer o design do jogo(cenario,personagens,menu,entre outros)
+
+passar pra unity
+
+fazer algo jogavel
+
+
+MOTIVOS
+
+to entediado 
+
