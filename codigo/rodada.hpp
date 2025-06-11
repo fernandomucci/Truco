@@ -7,11 +7,13 @@
 #include "carta.hpp"
 #include "baralho.hpp"
 #include "jogador.hpp"
+#include "partida.hpp"
 
 
 class Rodada
 {
     private:
+
     int PontoTime1 = 0;
     int PontoTime2 = 0;
     Jogador jogadores[2];
@@ -19,6 +21,10 @@ class Rodada
     Carta mesa[2];
     Carta SalvarCarta;
     Baralho* baralho;
+    int EmpateUltimaRodada = -1;
+    int rodadaInterna = 0;
+    int VenceuPrimeira1 = 0;
+    int VenceuPrimeira2 = 0;
 
     public:
 
@@ -53,8 +59,16 @@ class Rodada
      int getPontosTime1() const;
      int getPontosTime2() const;
 
-     //ainda a ser implementado
-     void Kenga();
+
+     void Empate();
+
+    //pega o valor de quem venceu a primeira
+     void set1VenceuPrimeira(int VenceuPrimeira1);
+     void set2VenceuPrimeira(int VenceuPrimeira2);
+
+     void setRodadaInterna(int rodadaInterna);
+
+     int getRodadaInterna() const;
 
     
 

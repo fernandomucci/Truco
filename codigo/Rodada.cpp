@@ -5,6 +5,7 @@
 #include "baralho.hpp"
 #include "jogador.hpp"
 #include "rodada.hpp"
+#include "partida.hpp"
 
 
     void Rodada::setBaralho(Baralho &baralhoRecebido)
@@ -106,7 +107,7 @@
 
     int  Rodada::PegandoCartaMaisForte(int ordemJogadores[])
     {
-        int IndiceMaisForte = quemComeca;
+        int indiceJogadorMaisForteAtual = quemComeca;
         int PesoMaisForte = 0;
         int vencedorDaRodada = 0;
 
@@ -119,41 +120,72 @@
             if(PesoAtual > PesoMaisForte)
             {
                 PesoMaisForte = PesoAtual;
-                IndiceMaisForte = jogadorIndex;
+                indiceJogadorMaisForteAtual = jogadorIndex;
                 vencedorDaRodada = i;
             }
+            else if(PesoAtual == PesoMaisForte && indiceJogadorMaisForteAtual != jogadorIndex)
+            {
+                    EmpateUltimaRodada = 1;
+   
+            }
         }
-        std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<IndiceMaisForte + 1<<std::endl;
+        std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<indiceJogadorMaisForteAtual + 1<<std::endl;
 
         
-        DefinindoVencedor(IndiceMaisForte);
+        DefinindoVencedor(indiceJogadorMaisForteAtual);
 
         return vencedorDaRodada;
 
     }
 
-    void  Rodada::DefinindoVencedor(int IndiceMaisForte)
+    void  Rodada::DefinindoVencedor(int indiceJogadorMaisForteAtual)
     {
 
         //jogador 0 é Time 1 e jogador 1 é Time 2
 
-        if(IndiceMaisForte == 0)
+        if(EmpateUltimaRodada == 1)
         {
-            PontoTime1++;
-
-            setPontosTime1(PontoTime1);
-
-            std::cout<<std::endl<<"VEMCEDOR FOI O TIME 1"<<std::endl;
+            Empate();
+            EmpateUltimaRodada = -1; // Reseta o kenga para a próxima rodada
         }
+
         else
         {
-            PontoTime2++;
-            setPontosTime2(PontoTime2);
+
+             if(indiceJogadorMaisForteAtual == 0)
+            {
+                PontoTime1++;
+            
+                if(rodadaInterna == 0) //1 rodada o indice é 0
+                {
+                    VenceuPrimeira1++;
+
+                 set1VenceuPrimeira(VenceuPrimeira1);
+
+                }
+
+             setPontosTime1(PontoTime1);
+
+             std::cout<<std::endl<<"VENCEDOR FOI O TIME 1"<<std::endl;
+        }
+            else
+            {
+                 PontoTime2++;
+                 setPontosTime2(PontoTime2);
+
+                if(rodadaInterna == 0)
+                {
+                    VenceuPrimeira2++;
+
+                     set2VenceuPrimeira(VenceuPrimeira2);
+
+             }
 
              std::cout<<std::endl<<"VEMCEDOR FOI O TIME 2"<<std::endl;
         }
 
     }
+}
 
     void  Rodada::setPontosTime1(int PontoTime1)
     {
@@ -175,7 +207,45 @@
         return this->PontoTime2;
     }
 
-    void Rodada::Kenga()
+    void Rodada::set1VenceuPrimeira(int VenceuPrimeira1)
     {
-        //ainda a ser adcionado
+        if( VenceuPrimeira1 > 0)
+        {
+            this->VenceuPrimeira1 = VenceuPrimeira1;
+        }
     }
+
+    void Rodada::set2VenceuPrimeira(int VenceuPrimeira2)
+    {
+        if( VenceuPrimeira2 > 0)
+        {
+            this->VenceuPrimeira2 = VenceuPrimeira2;
+        }
+    }
+
+   
+
+    void Rodada::Empate()
+    {
+        if (rodadaInterna == 3)
+        {
+            if (VenceuPrimeira1 == 1)
+            {
+                 PontoTime1++;
+                 setPontosTime1(PontoTime1);
+                std::cout << std::endl << "EMPATE! Time 1 venceu por ter ganho a primeira rodada." << std::endl;
+            }
+            else if (VenceuPrimeira2 == 1)
+            {
+                 PontoTime2++;
+                 setPontosTime2(PontoTime2);
+                 std::cout << std::endl << "EMPATE! Time 2 venceu por ter ganho a primeira rodada." << std::endl;
+            }
+        }
+        
+    }
+
+     void Rodada::setRodadaInterna(int rodadaInterna)
+     {
+        this->rodadaInterna = rodadaInterna;
+     }

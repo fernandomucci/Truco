@@ -32,6 +32,4 @@ Unity para desenvolvimento da interface e gameplay visual.
 Potencial integração com redes para multiplayer.
 
 
-MOTIVOS
 
-estou entediado.

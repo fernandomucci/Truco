@@ -1,6 +1,6 @@
 PROJETOS ESSENCIAIS
 
-sistema de kenga
+sistema de kenga(SENDO IMPLEMENTADO)
 
 sistema do truco,seis,nove,12
 
@@ -25,4 +25,8 @@ fazer algo jogavel
 MOTIVOS
 
 to entediado 
+
+PS
+
+se sua Fonte permitir emoji,vai em carta.cpp e tira os comentarios da função sobrecarga de operação  😉 😄 😃 😊 😁 😆 😍 🥳 🤗
 

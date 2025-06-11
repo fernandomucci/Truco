@@ -8,5 +8,6 @@
 #include "jogador.cpp"
 #include "partida.cpp"
 #include "rodada.cpp"
+#include "apagar.cpp"
 
 #endif

@@ -111,9 +111,9 @@
     //sobrecarga do operador
     std::ostream& operator<<(std::ostream& os, const Carta& carta) 
     {
-    //std::string emoji;
+    /*std::string emoji;
 
-    /*if (carta.getNaipe() == "Copas") emoji = "♥️";
+    if (carta.getNaipe() == "Copas") emoji = "♥️";
     else if (carta.getNaipe() == "Espadas") emoji = "♠️";
     else if (carta.getNaipe() == "Ouros") emoji = "♦️";
     else if (carta.getNaipe() == "Paus") emoji = "♣️";*/

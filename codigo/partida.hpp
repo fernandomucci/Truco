@@ -2,6 +2,8 @@
 #define PARTIDA_H
 
 #include "rodada.hpp"
+#include "baralho.hpp"
+#include <iostream>
 
 class Partida
 {
@@ -12,6 +14,7 @@ class Partida
     int PlacarTime2 = 0;
     Rodada RodadaAtual;
     Baralho baralho;
+    int rodadaInterna = 0;
 
     public:
 

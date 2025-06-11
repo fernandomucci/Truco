@@ -5,7 +5,7 @@
 #include "baralho.hpp"
 #include "jogador.hpp"
 #include "partida.hpp"
-
+#include "apagar.hpp"
 
     void Partida::iniciarPartida()
     {
@@ -22,6 +22,10 @@
         {
             jogarRodada();
         }
+        
+        //verifica quem foi o vencedor da primeira rodada
+        RodadaAtual.setRodadaInterna(rodadaInterna);
+
         VerificarVencedorFinal();
 
     }
@@ -33,8 +37,7 @@
         baralho.EmbaralharBaralho();
 
     //limpa o terminal antes de começar a partida
-    //TENTAR CRIAR UMA FUÇÃO DE LIMPAR,PARA RODAR TANTO NO LINUX QUANTO NO WINDOWS 
-    system("cls");
+    limparTela();
 
     std::cout << "\n======= PARTIDA " << partidas + 1 << " =======\n";
 
@@ -45,17 +48,22 @@
    RodadaAtual.distribuirCartas();
 
     // Zera contadores de vitórias dentro desta rodada
+   RodadaAtual.setRodadaInterna(0); 
    RodadaAtual.setPontosTime1(0);
    RodadaAtual.setPontosTime2(0);
     int vitoriasTime1 = 0;
     int vitoriasTime2 = 0;
-    int rodadaInterna = 0;
+    this-> rodadaInterna = 0;
 
     while (vitoriasTime1 < 2 && vitoriasTime2 < 2 && rodadaInterna < 3)
     {
         std::cout << "\n--- RODADA " << rodadaInterna + 1 << " ---\n";
 
-        RodadaAtual.iniciar(); // Jogadores jogam 1 carta
+        // Define rodada interna correta antes de iniciar
+         RodadaAtual.setRodadaInterna(rodadaInterna + 1);
+         
+
+        RodadaAtual.iniciar(); // Jogadores jogam 1 carta cada
 
         if (RodadaAtual.getPontosTime1() > RodadaAtual.getPontosTime2())
         {
@@ -66,8 +74,10 @@
             vitoriasTime2++;
         }
 
-        rodadaInterna++;
+         rodadaInterna++;
+
     }
+
 
     // Quem vencer 2 rodadas leva 1 ponto
     if (vitoriasTime1 == 2)
@@ -80,20 +90,25 @@
         PlacarTime2++;
         std::cout << "\nTime 2 venceu a rodada e ganhou 1 ponto!\n";
     }
-    else
-    {
-        std::cout << "\nRodada empatada. Ninguém pontua!\n";
-    }
+
+
 
     partidas++;
     atualizarPlacar();
+
+    //espera a confirmaçao para apagar a tela
+    esperarEnter(); 
 }
+
+
 
     
     void Partida::atualizarPlacar()
     {
       std::cout << "\nPlacar parcial: Time 1 = " << PlacarTime1 << " | Time 2 = " << PlacarTime2 << std::endl;
     }
+
+
 
     void Partida::VerificarVencedorFinal()
     {
