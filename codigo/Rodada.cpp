@@ -129,7 +129,6 @@
    
             }
         }
-        std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<indiceJogadorMaisForteAtual + 1<<std::endl;
 
         
         DefinindoVencedor(indiceJogadorMaisForteAtual);
@@ -151,6 +150,7 @@
 
         else
         {
+            std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<indiceJogadorMaisForteAtual + 1<<std::endl;
 
              if(indiceJogadorMaisForteAtual == 0)
             {

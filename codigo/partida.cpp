@@ -105,7 +105,11 @@
     
     void Partida::atualizarPlacar()
     {
-      std::cout << "\nPlacar parcial: Time 1 = " << PlacarTime1 << " | Time 2 = " << PlacarTime2 << std::endl;
+      //std::cout<< "Placar parcial: Time 1 = " << PlacarTime1 << " | Time 2 = " << PlacarTime2 << std::endl;
+      std::cout<<std::endl<< "<----- PLACAR PARCIAL ----->"<<std::endl;
+      std::cout<<std::endl<<"Time 1 = "<<PlacarTime1<<std::endl;
+      std::cout<<std::endl<<"Time 2 = "<<PlacarTime2<<std::endl;
+      std::cout<<std::endl<<"<-------------------------->"<<std::endl;
     }
 
 
