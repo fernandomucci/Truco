@@ -125,8 +125,18 @@
             }
             else if(PesoAtual == PesoMaisForte && indiceJogadorMaisForteAtual != jogadorIndex)
             {
-                    EmpateUltimaRodada = 1;
-   
+                     // Verifica se é a terceira rodada (índice 2)
+                    if(rodadaInterna == 2) 
+                    {
+                        EmpateUltimaRodada = 1;
+                    }
+                    /*else 
+                    {
+                                // Em outras rodadas, o jogador que jogou por último vence
+                                PesoMaisForte = PesoAtual;
+                                indiceJogadorMaisForteAtual = jogadorIndex;
+                                vencedorDaRodada = i;
+                  }*/
             }
         }
 
@@ -150,11 +160,12 @@
 
         else
         {
-            std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<indiceJogadorMaisForteAtual + 1<<std::endl;
+           
 
              if(indiceJogadorMaisForteAtual == 0)
             {
                 PontoTime1++;
+                setPontosTime1(PontoTime1);
             
                 if(rodadaInterna == 0) //1 rodada o indice é 0
                 {
@@ -163,8 +174,6 @@
                  set1VenceuPrimeira(VenceuPrimeira1);
 
                 }
-
-             setPontosTime1(PontoTime1);
 
              std::cout<<std::endl<<"VENCEDOR FOI O TIME 1"<<std::endl;
         }
@@ -184,7 +193,11 @@
              std::cout<<std::endl<<"VEMCEDOR FOI O TIME 2"<<std::endl;
         }
 
+        std::cout<<std::endl<<"a carta mais fortes jogada foi pelo jogador "<<indiceJogadorMaisForteAtual + 1<<std::endl;
+
     }
+
+    
 }
 
     void  Rodada::setPontosTime1(int PontoTime1)
@@ -227,7 +240,7 @@
 
     void Rodada::Empate()
     {
-        if (rodadaInterna == 3)
+        if (rodadaInterna == 2) // Se for a terceira rodada
         {
             if (VenceuPrimeira1 == 1)
             {

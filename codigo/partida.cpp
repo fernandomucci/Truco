@@ -60,7 +60,7 @@
         std::cout << "\n--- RODADA " << rodadaInterna + 1 << " ---\n";
 
         // Define rodada interna correta antes de iniciar
-         RodadaAtual.setRodadaInterna(rodadaInterna + 1);
+         RodadaAtual.setRodadaInterna(rodadaInterna);
          
 
         RodadaAtual.iniciar(); // Jogadores jogam 1 carta cada
