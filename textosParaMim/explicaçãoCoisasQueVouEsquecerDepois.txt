@@ -1,5 +1,5 @@
 
-⚠️ QUE CARALHOS DE LINHA E ESSA AQUI EM BAIXO ⚠️
+⚠️ QUE LINHA E ESSA AQUI EM BAIXO ⚠️
 
 int ordemJogadores[2] = {quemComeca, (quemComeca + 1) % 2};
 
@@ -49,7 +49,7 @@ Ou seja, o jogador 1 joga primeiro, o jogador 0 depois.
 
 
 
-⚠️ QUE PORRA E ESSA DDE SOBRECARGA DE OPERADOR ⚠️
+⚠️ QUEE ESSA DE SOBRECARGA DE OPERADOR ⚠️
 
 PS: O CODIGO DESSA PARTE ESTA COMENTADA,POIS A FONTE DO MINE NÃO PERMITE EMOJIS NO TERMINAL 😔😔😔😔
 

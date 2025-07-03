@@ -1,6 +1,1 @@
-
-
-class HumanPlayer
-{
-
-};
+//ainda a ser implementado

@@ -3,33 +3,26 @@
 
 #include "rodada.hpp"
 #include "baralho.hpp"
-#include <iostream>
+#include "truco.hpp"
 
 class Partida
 {
-    private:
-
-    int partidas = 0;
-    int PlacarTime1 = 0;
-    int PlacarTime2 = 0;
+private:
+    int partidas;
+    int PlacarTime1;
+    int PlacarTime2;
     Rodada RodadaAtual;
     Baralho baralho;
-    int rodadaInterna = 0;
+    Truco jogoDeTruco;
+    bool partidaEmAndamento;
 
-    public:
-
+public:
+    Partida();
     void iniciarPartida();
-
     void jogarRodada();
-
     void atualizarPlacar();
-
     void VerificarVencedorFinal();
+    void finalizarRodadaPorFuga();
+};
 
-    
-
-};    
-
-
-
-#endif
+#endif 

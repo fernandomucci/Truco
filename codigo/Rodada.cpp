@@ -6,12 +6,23 @@
 #include "jogador.hpp"
 #include "rodada.hpp"
 #include "partida.hpp"
+#include "truco.hpp"
+#include "apagar.hpp"
 
+Rodada::Rodada()
+ {
+    quemComeca = 0;
+    partidaAtual = nullptr;
+    jogoDeTruco = nullptr;
+    baralho = nullptr;
+}
 
-    void Rodada::setBaralho(Baralho &baralhoRecebido)
-    {
-      baralho = &baralhoRecebido;
-    }
+// Setters para configurar a rodada
+void Rodada::setPartida(Partida* partida) { this->partidaAtual = partida; }
+void Rodada::setBaralho(Baralho &baralhoRecebido) { baralho = &baralhoRecebido; }
+void Rodada::setTruco(Truco* truco) { this->jogoDeTruco = truco; }
+void Rodada::setRodadaInterna(int rodada) { this->rodadaInterna = rodada; }
+
 
     void Rodada::distribuirCartas()
     {
@@ -21,49 +32,139 @@
         }
     }
 
-    void Rodada::iniciar()
-    {   
+    void Rodada::prepararRodada() 
+    {
+        distribuirCartas();
+        PontoTime1 = 0;
+        PontoTime2 = 0;
+        VenceuPrimeira1 = 0;
+        VenceuPrimeira2 = 0;
+        rodadaAcabou = false;
+    }
 
-        // ordem dos jogadores baseada em quemComeca
-        int ordemJogadores[2] = {quemComeca, (quemComeca + 1) % 2};
+    bool Rodada::getRodadaAcabou() const 
+    {
+    return rodadaAcabou;
+    }
 
-        for(int i = 0; i < 2; i++)
-        {
-            int jogadorIndex = ordemJogadores[i];
+void Rodada::gerenciarInteracaoTruco(int jogadorQuePedeIndex) 
+{
+    int oponenteIndex = (jogadorQuePedeIndex + 1) % 2;
 
+    // Flag booleana para controlar o loop de forma explícita
+    bool apostaEmAndamento = true;
 
-            jogadores[jogadorIndex].MostrarCarta();
+    
+    while (apostaEmAndamento) 
+    {
+        bool pediuComSucesso = jogoDeTruco->Pedir(jogadorQuePedeIndex);
 
-            int escolha = jogarCarta(jogadores[jogadorIndex],jogadorIndex);
-
-            SalvaJogaColoca(jogadores[jogadorIndex],escolha,mesa[jogadorIndex]);
-
-            system("cls");
-
-            std::cout<<"o jogador "<<jogadorIndex+1<<" jogou: "<<SalvarCarta.getValor()<<" de "<<SalvarCarta.getNaipe()<<std::endl;
+        if (!pediuComSucesso) {
+            apostaEmAndamento = false; // Condição de saída: não era possível pedir
             
         }
-            mostrarMesa(mesa);
+        limparTela();
 
-           int vencedorIndice = PegandoCartaMaisForte(ordemJogadores);
+        std::cout << "Jogador " << (jogadorQuePedeIndex + 1) << " pediu " << jogoDeTruco->getEstado() << "!" << std::endl;
+
+        // Oponente precisa responder
+        std::cout << "--------------------------------" << std::endl;
+        std::cout << "Jogador " << (oponenteIndex + 1) << ", voce foi trucado!\n";
+        jogadores[oponenteIndex].MostrarCarta();
+        std::cout << "[1] Aceitar\n[2] Correr\n";
+        if (jogoDeTruco->getEstado() != DOZE) 
+        {
+            EstadoTruco proximo;
+            EstadoTruco estadoAtual = jogoDeTruco->getEstado();
+
+            if (estadoAtual == TRUCO) 
+            {
+                proximo = SEIS;
+            } 
+            else if (estadoAtual == SEIS) 
+            {
+                proximo = NOVE;
+            } 
+            else // Se não for TRUCO nem SEIS, só pode ser NOVE (pois ja exclui o DOZE no if principal)
+            {
+                proximo = DOZE;
+            }
+
+            std::cout << "[3] Pedir " << proximo << std::endl;
+        }
+
+        int resposta;
+        std::cin >> resposta;
+
+        if (resposta == 1) 
+        { // ACEITAR
+            std::cout << "Jogador " << (oponenteIndex + 1) << " aceitou!"<< std::endl;
+            jogoDeTruco->Responder(resposta);
+            apostaEmAndamento = false; // Condição de saída: aposta foi aceita
+        }
+        else if (resposta == 2) 
+        { // CORRER
+            std::cout << "Jogador " << (oponenteIndex + 1) << " correu!" << std::endl;
+            jogoDeTruco->Responder(resposta);
+            this->rodadaAcabou = true;
+            partidaAtual->finalizarRodadaPorFuga();
+            apostaEmAndamento = false; // Condição de saída: alguém correu
+        }
+        else if (resposta == 3 && jogoDeTruco->getEstado() != DOZE) 
+        {  // AUMENTAR A APOSTA
+            // Inverte os papéis e o loop continua (apostaEmAndamento continua true)
+            int temp = jogadorQuePedeIndex;
+            jogadorQuePedeIndex = oponenteIndex;
+            oponenteIndex = temp;
+        } else {
+             std::cout << "Opcao invalida. Considerando como 'Correr'." << std::endl;
+             jogoDeTruco->Responder(2); // Trata como se tivesse corrido
+             this->rodadaAcabou = true;
+             partidaAtual->finalizarRodadaPorFuga();
+             apostaEmAndamento = false; // Condição de saída: opção inválida
+        }
+
+        std::cout<<"Partida valendo "<<jogoDeTruco->getEstado()<<std::endl;
+    }
+}
+
+void Rodada::iniciar() {
+    int ordemJogadores[2] = {quemComeca, (quemComeca + 1) % 2};
 
 
 
-           // Atualizar quem começa na próxima rodada
-           quemComeca = ordemJogadores[vencedorIndice];
+    // Loop simples para cada jogador jogar sua carta
+    for (int i = 0; i < 2; i++) {
+        int jogadorIndex = ordemJogadores[i];
+
+        // A lógica de truco 
+    if (jogoDeTruco->getEstado() == NORMAL) {
+        std::cout << "--------------------------------" << std::endl;
+        std::cout << "Jogador " << (ordemJogadores[i] + 1) << ", sua vez.\n";
+        jogadores[ordemJogadores[i]].MostrarCarta();
+
+        std::cout << "Deseja pedir TRUCO? [1] Sim | [2] Nao\n";
+        int escolhaTruco;
+        std::cin >> escolhaTruco;
+        if (escolhaTruco == 1) {
+            gerenciarInteracaoTruco(ordemJogadores[i]);
+            // Se alguém correu, a flag rodadaAcabou será true e a função deve parar.
+            if (rodadaAcabou) return;
+        }
+
+        jogadores[jogadorIndex].MostrarCarta();
+        int escolha = jogarCarta(jogadores[jogadorIndex], jogadorIndex);
+        SalvaJogaColoca(jogadores[jogadorIndex], escolha, mesa[jogadorIndex]);
+        limparTela();
+        std::cout << "O jogador " << jogadorIndex + 1 << " jogou: " << SalvarCarta.getValor() << " de " << SalvarCarta.getNaipe() << std::endl;
     }
 
-    void Rodada::SalvaJogaColoca(Jogador &jogadores,int escolha,Carta &mesa)
-    {
-            //salva carta antes dela ser jogada
-            SalvarCarta = jogadores.getCarta(escolha - 1);
+    mostrarMesa(mesa);
+    int vencedorIndiceRelativo = PegandoCartaMaisForte(ordemJogadores);
+    quemComeca = ordemJogadores[vencedorIndiceRelativo]; // Vencedor da mão começa a próxima
+}
+}
 
-            //joga a carta
-            jogadores.usarCarta(escolha - 1);
-
-            //salva na mesa a carta certa
-            mesa = SalvarCarta;
-    }
 
     int Rodada::jogarCarta(Jogador &jogadores,int jogadorIndex)
     {
@@ -94,7 +195,7 @@
 
     void  Rodada::mostrarMesa(Carta mesa[])
     {
-        system("cls");
+        limparTela();
 
         std::cout<<std::endl<<"<-----MESA----->"<<std::endl;
         for(int i = 0; i<2; i++)
@@ -130,13 +231,6 @@
                     {
                         EmpateUltimaRodada = 1;
                     }
-                    /*else 
-                    {
-                                // Em outras rodadas, o jogador que jogou por último vence
-                                PesoMaisForte = PesoAtual;
-                                indiceJogadorMaisForteAtual = jogadorIndex;
-                                vencedorDaRodada = i;
-                  }*/
             }
         }
 
@@ -258,7 +352,13 @@
         
     }
 
-     void Rodada::setRodadaInterna(int rodadaInterna)
-     {
-        this->rodadaInterna = rodadaInterna;
-     }
+     void Rodada::SalvaJogaColoca(Jogador &jogador, int escolha, Carta &cartaDaMesa) {
+    // 1. Pega a carta da mão do jogador
+    SalvarCarta = jogador.getCarta(escolha - 1); // Salva a carta para referência
+
+    // 2. Coloca a carta na mesa
+    cartaDaMesa = SalvarCarta; 
+    
+    // 3. Marca a carta na mão do jogador como "jogada"
+    jogador.usarCarta(escolha - 1); 
+}

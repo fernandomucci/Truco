@@ -21,31 +21,7 @@
 
     // Construtor de cópia
     Carta::Carta(const Carta& outra) 
-    : naipe(outra.naipe), valor(outra.valor), peso(outra.peso)
-    {
-   
-   /*Depois do ) que fecha os parâmetros do construtor, você coloca :.
-
-    Depois do : vem a lista de inicialização, que diz:
-
-    o atributo naipe será inicializado com outra.naipe
-
-    o atributo valor será inicializado com outra.valor
-
-    o atributo peso será inicializado com outra.peso*/
-
-    //de acordo com a internet e melhor desse jeito,pq poupa tempo
-    //isso e como se ja criasse  o objeto cheio
-
-    //talvez eu mude depois 
-
-    //codigo antigo se eu quiser mudar 
-
-    /*naipe = outra.naipe;  
-    valor = outra.valor;   
-    peso = outra.peso;*/
-
-    }
+    : naipe(outra.naipe), valor(outra.valor), peso(outra.peso){}
 
 
 

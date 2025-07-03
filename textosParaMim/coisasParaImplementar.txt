@@ -1,10 +1,10 @@
 PROJETOS ESSENCIAIS
 
-sistema de kenga(SENDO IMPLEMENTADO)
+sistema de kenga(IMPLEMENTADO)
 
-sistema do truco,seis,nove,12
+sistema do truco,seis,nove,12(IMPLEMENTADO)
 
-sistema de roleta russa
+sistema de roleta russa(AINDA A SER IMPLEMENTADO)
 
 sistema de emoji(ja tem,mas minha fonte nao permite,ent deixei como comentario no final do codigo de cartas.cpp,
 na fução de sobrecarga)
@@ -21,10 +21,6 @@ passar pra unity
 
 fazer algo jogavel
 
-
-MOTIVOS
-
-to entediado 
 
 PS
 

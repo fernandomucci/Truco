@@ -9,5 +9,6 @@
 #include "partida.cpp"
 #include "rodada.cpp"
 #include "apagar.cpp"
+#include "truco.cpp"
 
 #endif
