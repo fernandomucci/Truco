@@ -1,4 +1,4 @@
-Truco
+
 JOGO DE TRUCO MINEIRO
 
 Este é um projeto de jogo de Truco Mineiro desenvolvido em C++. O jogo simula as regras tradicionais do Truco jogado em Minas Gerais, com uma interface simples para terminal. O objetivo do projeto é proporcionar uma experiência divertida de Truco, com lógica de jogo implementada em código, e servir como base para futuros desenvolvimentos.
