@@ -134,11 +134,13 @@ void Rodada::iniciar() {
 
 
     // Loop simples para cada jogador jogar sua carta
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) 
+    {
         int jogadorIndex = ordemJogadores[i];
 
         // A lógica de truco 
-    if (jogoDeTruco->getEstado() == NORMAL) {
+    if (jogoDeTruco->getEstado() == NORMAL) 
+    {
         std::cout << "--------------------------------" << std::endl;
         std::cout << "Jogador " << (ordemJogadores[i] + 1) << ", sua vez.\n";
         jogadores[ordemJogadores[i]].MostrarCarta();
@@ -151,18 +153,24 @@ void Rodada::iniciar() {
             // Se alguém correu, a flag rodadaAcabou será true e a função deve parar.
             if (rodadaAcabou) return;
         }
+        
 
         jogadores[jogadorIndex].MostrarCarta();
         int escolha = jogarCarta(jogadores[jogadorIndex], jogadorIndex);
         SalvaJogaColoca(jogadores[jogadorIndex], escolha, mesa[jogadorIndex]);
         limparTela();
         std::cout << "O jogador " << jogadorIndex + 1 << " jogou: " << SalvarCarta.getValor() << " de " << SalvarCarta.getNaipe() << std::endl;
+
     }
+}
+        
+    
 
     mostrarMesa(mesa);
     int vencedorIndiceRelativo = PegandoCartaMaisForte(ordemJogadores);
     quemComeca = ordemJogadores[vencedorIndiceRelativo]; // Vencedor da mão começa a próxima
-}
+    
+
 }
 
 
