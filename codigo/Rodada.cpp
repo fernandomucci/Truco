@@ -153,6 +153,7 @@ void Rodada::iniciar() {
             // Se alguém correu, a flag rodadaAcabou será true e a função deve parar.
             if (rodadaAcabou) return;
         }
+    }
         
 
         jogadores[jogadorIndex].MostrarCarta();
@@ -161,7 +162,7 @@ void Rodada::iniciar() {
         limparTela();
         std::cout << "O jogador " << jogadorIndex + 1 << " jogou: " << SalvarCarta.getValor() << " de " << SalvarCarta.getNaipe() << std::endl;
 
-    }
+    
 }
         
     
